@@ -3,25 +3,16 @@ import { CheckCircle2 } from 'lucide-react';
 
 // Centauri Carbon 2 Combo preset colors (4 rows x 6 columns)
 const PRESET_COLORS: { name: string; hex: string }[][] = [
-  // Row 1: Neutrals
+  // Row 1: Mixed
   [
-    { name: 'Black', hex: '#000000' },
-    { name: 'White', hex: '#FFFFFF' },
-    { name: 'Silver', hex: '#C0C0C0' },
-    { name: 'Gold', hex: '#DAA520' },
-    { name: 'Ivory', hex: '#F5F5DC' },
-    { name: 'Snow', hex: '#F0F0F0' },
+    { name: 'Royal Blue', hex: '#2979FF' },
+    { name: 'Forest Green', hex: '#228B22' },
+    { name: 'Lime', hex: '#AAFF00' },
+    { name: 'Yellow', hex: '#FFFF00' },
+    { name: 'Yellow Green', hex: '#CCCC00' },
+    { name: 'Light Gray', hex: '#D3D3D3' },
   ],
-  // Row 2: Warm tones
-  [
-    { name: 'Orange', hex: '#FFA500' },
-    { name: 'Amber', hex: '#CC9900' },
-    { name: 'Red Orange', hex: '#FF6633' },
-    { name: 'Coral', hex: '#FF8080' },
-    { name: 'Lavender', hex: '#D8AAEE' },
-    { name: 'Magenta', hex: '#CC00CC' },
-  ],
-  // Row 3: Cool tones
+  // Row 2: Cool tones
   [
     { name: 'Purple', hex: '#7B2FBE' },
     { name: 'Navy', hex: '#000080' },
@@ -30,14 +21,23 @@ const PRESET_COLORS: { name: string; hex: string }[][] = [
     { name: 'Teal', hex: '#00CCAA' },
     { name: 'Green', hex: '#00CC00' },
   ],
-  // Row 4: Mixed
+  // Row 3: Warm tones
   [
-    { name: 'Royal Blue', hex: '#2979FF' },
-    { name: 'Forest Green', hex: '#228B22' },
-    { name: 'Lime', hex: '#AAFF00' },
-    { name: 'Yellow', hex: '#FFFF00' },
-    { name: 'Yellow Green', hex: '#CCCC00' },
-    { name: 'Light Gray', hex: '#D3D3D3' },
+    { name: 'Orange', hex: '#FFA500' },
+    { name: 'Amber', hex: '#CC9900' },
+    { name: 'Red Orange', hex: '#FF6633' },
+    { name: 'Coral', hex: '#FF8080' },
+    { name: 'Lavender', hex: '#D8AAEE' },
+    { name: 'Magenta', hex: '#CC00CC' },
+  ],
+  // Row 4: Neutrals
+  [
+    { name: 'Black', hex: '#000000' },
+    { name: 'White', hex: '#FFFFFF' },
+    { name: 'Silver', hex: '#C0C0C0' },
+    { name: 'Gold', hex: '#DAA520' },
+    { name: 'Ivory', hex: '#F5F5DC' },
+    { name: 'Snow', hex: '#F0F0F0' },
   ],
 ];
 
