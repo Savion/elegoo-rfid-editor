@@ -27,7 +27,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
         Filament Color
         <span className="text-xs text-green-600">(Used by printer)</span>
       </label>
-      <div className="flex gap-3 items-center">
+      <div className="flex flex-wrap gap-3 items-center">
         <input
           type="color"
           value={hexColor}
@@ -39,10 +39,10 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
           value={hexColor.toUpperCase()}
           onChange={(e) => handleHexChange(e.target.value)}
           placeholder="#FF0000"
-          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-elegoo-orange focus:border-transparent font-mono uppercase"
+          className="flex-1 min-w-[120px] px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-elegoo-orange focus:border-transparent font-mono uppercase"
           maxLength={7}
         />
-        <div className="flex gap-2 text-sm text-gray-600">
+        <div className="flex gap-2 text-sm text-gray-600 whitespace-nowrap">
           <span>R: {value.r}</span>
           <span>G: {value.g}</span>
           <span>B: {value.b}</span>
