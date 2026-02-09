@@ -201,7 +201,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## Related Projects
 
 - [Desktop Windows App](https://github.com/Savion/elegoo-rfid-editor-desktop) - Original C# WinForms application
-- [RFID Tools](https://play.google.com/store/apps/details?id=com.rfidtools) - Mobile NFC reader/writer app
+- [RFID Tools](https://play.google.com/store/apps/details?id=com.wakdev.wdnfc) - Mobile NFC reader/writer app
 
 ## License
 
