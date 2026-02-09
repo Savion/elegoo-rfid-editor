@@ -267,6 +267,7 @@ function App() {
           <ExportButtons
             spool={spool}
             onStatusUpdate={setStatusMessage}
+            filename={fileName || generateDefaultFileName(spool).replace('.bin', '')}
           />
         )}
 

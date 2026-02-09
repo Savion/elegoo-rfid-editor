@@ -4,9 +4,10 @@ import type { ElegooSpool } from '../lib/ElegooSpool';
 interface ExportButtonsProps {
   spool: ElegooSpool;
   onStatusUpdate: (message: string) => void;
+  filename: string;
 }
 
-export function ExportButtons({ spool, onStatusUpdate }: ExportButtonsProps) {
+export function ExportButtons({ spool, onStatusUpdate, filename }: ExportButtonsProps) {
   const handleMobileExport = async () => {
     const commands = spool.exportMobileCommands();
 
@@ -40,7 +41,8 @@ export function ExportButtons({ spool, onStatusUpdate }: ExportButtonsProps) {
 
   const handleShare = async () => {
     const blob = spool.toBlob();
-    const file = new File([blob], 'spool.bin', { type: 'application/octet-stream' });
+    const fileName = filename ? `${filename}.bin` : 'spool.bin';
+    const file = new File([blob], fileName, { type: 'application/octet-stream' });
 
     // Try native share API (mobile)
     if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -65,7 +67,7 @@ export function ExportButtons({ spool, onStatusUpdate }: ExportButtonsProps) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'spool.bin';
+    a.download = fileName;
     a.click();
     URL.revokeObjectURL(url);
     onStatusUpdate('File downloaded (Share not available on desktop)');
