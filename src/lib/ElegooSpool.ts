@@ -211,7 +211,7 @@ export class ElegooSpool {
 
   // Export to Blob
   toBlob(): Blob {
-    return new Blob([this.data], { type: 'application/octet-stream' });
+    return new Blob([this.data.buffer], { type: 'application/octet-stream' });
   }
 
   // Export mobile commands

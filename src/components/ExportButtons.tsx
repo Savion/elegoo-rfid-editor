@@ -97,7 +97,7 @@ export function ExportButtons({ spool, onStatusUpdate }: ExportButtonsProps) {
           className="flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
         >
           <Share2 size={20} />
-          {navigator.share ? 'Share / Download' : 'Download File'}
+          {'share' in navigator ? 'Share / Download' : 'Download File'}
         </button>
       </div>
 
@@ -109,8 +109,8 @@ export function ExportButtons({ spool, onStatusUpdate }: ExportButtonsProps) {
           <strong>Copy Clean Hex:</strong> Copies raw hex string for apps supporting hex input
         </p>
         <p>
-          <strong>{navigator.share ? 'Share / Download:' : 'Download File:'}</strong>{' '}
-          {navigator.share
+          <strong>{'share' in navigator ? 'Share / Download:' : 'Download File:'}</strong>{' '}
+          {'share' in navigator
             ? 'Uses share sheet on mobile, downloads on desktop'
             : 'Downloads the .bin file to your device'}
         </p>
