@@ -13,7 +13,7 @@ export function Header() {
           </div>
 
           <a
-            href="https://github.com/yourusername/elegoo-rfid-editor"
+            href="https://github.com/Savion/elegoo-rfid-editor"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
