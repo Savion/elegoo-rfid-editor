@@ -110,7 +110,7 @@ export function ExportButtons({ spool, onStatusUpdate, filename }: ExportButtons
 
       <div className="mt-4 text-sm text-gray-600 space-y-1">
         <p>
-          <strong>Export for Mobile:</strong> Generates A2 commands for RFID Tools (Android) or NFC Tools (iOS)
+          <strong>Export for Mobile:</strong> Generates optimized A2 commands for RFID Tools (Android) or NFC Tools (iOS)
         </p>
         <p>
           <strong>Copy Clean Hex:</strong> Copies raw hex string for apps supporting hex input

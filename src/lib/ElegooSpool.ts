@@ -214,12 +214,19 @@ export class ElegooSpool {
     return new Blob([new Uint8Array(this.data)], { type: 'application/octet-stream' });
   }
 
-  // Export mobile commands
+  // Export mobile commands (optimized - skips all-zero pages)
   exportMobileCommands(): string {
     const commands: string[] = [];
     for (let page = 4; page <= 44; page++) {
       const offset = page * 4;
-      const hex = Array.from(this.data.slice(offset, offset + 4))
+      const pageData = this.data.slice(offset, offset + 4);
+
+      // Skip pages that are all zeros (optimization for faster mobile writes)
+      if (pageData.every((b) => b === 0)) {
+        continue;
+      }
+
+      const hex = Array.from(pageData)
         .map((b) => b.toString(16).padStart(2, '0').toUpperCase())
         .join('');
       commands.push(`A2:${page.toString(16).padStart(2, '0').toUpperCase()}:${hex}`);
