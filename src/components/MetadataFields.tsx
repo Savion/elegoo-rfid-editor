@@ -100,6 +100,9 @@ export function MetadataFields({
           />
         </div>
 
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="flex items-center gap-1 text-sm font-medium text-gray-500 italic mb-2">
             <Info size={14} />
@@ -116,7 +119,7 @@ export function MetadataFields({
             />
             <button
               onClick={setCurrentDate}
-              className="px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors"
+              className="px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors flex-shrink-0"
               title="Set to current month"
             >
               <Calendar size={18} />

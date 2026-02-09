@@ -167,7 +167,7 @@ function App() {
 
             <button
               onClick={() => setShowHexEditor(!showHexEditor)}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium ml-auto"
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
             >
               {showHexEditor ? 'Hide' : 'Show'} Hex Editor
             </button>
