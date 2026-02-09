@@ -15,7 +15,12 @@ export function ExportButtons({ spool, onStatusUpdate, filename }: ExportButtons
       await navigator.clipboard.writeText(commands);
       onStatusUpdate('Mobile commands copied to clipboard');
       alert(
-        'Commands copied to clipboard!\n\nIn RFID Tools app:\n' +
+        'Commands copied to clipboard!\n\n' +
+          'Android (RFID Tools):\n' +
+          '1. Go to Other → Advanced RFID Commands\n' +
+          '2. Paste in Data field\n' +
+          '3. Click Send command\n\n' +
+          'iOS (NFC Tools):\n' +
           '1. Go to Other → Advanced RFID Commands\n' +
           '2. Paste in Data field\n' +
           '3. Click Send command'
@@ -105,7 +110,7 @@ export function ExportButtons({ spool, onStatusUpdate, filename }: ExportButtons
 
       <div className="mt-4 text-sm text-gray-600 space-y-1">
         <p>
-          <strong>Export for Mobile:</strong> Generates A2 commands for RFID Tools app
+          <strong>Export for Mobile:</strong> Generates A2 commands for RFID Tools (Android) or NFC Tools (iOS)
         </p>
         <p>
           <strong>Copy Clean Hex:</strong> Copies raw hex string for apps supporting hex input

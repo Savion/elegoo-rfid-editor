@@ -46,7 +46,9 @@ These fields are stored but not currently used by the printer:
 2. Tap **"Add to Home Screen"** for easy access
 3. Load or create your tag
 4. Tap **"Export for Mobile"** to copy commands
-5. Open RFID Tools app → Other → Advanced RFID Commands
+5. Open the NFC app:
+   - **Android:** RFID Tools → Other → Advanced RFID Commands
+   - **iOS:** NFC Tools → Other → Advanced RFID Commands
 6. Paste and send!
 
 ## Development
@@ -169,7 +171,7 @@ The app automatically recalculates this when you click "Fix Checksum".
 ```
 A2:04:01030A0C, A2:05:34030FD1, A2:06:01025502, ...
 ```
-Copy this and paste into RFID Tools app.
+Copy this and paste into RFID Tools (Android) or NFC Tools (iOS) app.
 
 ### Clean Hex
 ```
@@ -201,7 +203,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## Related Projects
 
 - [Desktop Windows App](https://github.com/Savion/elegoo-rfid-editor-desktop) - Original C# WinForms application
-- [RFID Tools](https://play.google.com/store/apps/details?id=com.wakdev.wdnfc) - Mobile NFC reader/writer app
+- [RFID Tools (Android)](https://play.google.com/store/apps/details?id=com.wakdev.wdnfc) - Mobile NFC reader/writer app
+- [NFC Tools (iOS)](https://apps.apple.com/us/app/nfc-tools/id1252962749) - Mobile NFC reader/writer app
 
 ## License
 
