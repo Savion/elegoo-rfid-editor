@@ -1,6 +1,46 @@
 import { useState, useEffect } from 'react';
 import { CheckCircle2 } from 'lucide-react';
 
+// Centauri Carbon 2 Combo preset colors (4 rows x 6 columns)
+const PRESET_COLORS: { name: string; hex: string }[][] = [
+  // Row 1: Neutrals
+  [
+    { name: 'Black', hex: '#000000' },
+    { name: 'White', hex: '#FFFFFF' },
+    { name: 'Silver', hex: '#C0C0C0' },
+    { name: 'Gold', hex: '#DAA520' },
+    { name: 'Ivory', hex: '#F5F5DC' },
+    { name: 'Snow', hex: '#F0F0F0' },
+  ],
+  // Row 2: Warm tones
+  [
+    { name: 'Orange', hex: '#FFA500' },
+    { name: 'Amber', hex: '#CC9900' },
+    { name: 'Red Orange', hex: '#FF6633' },
+    { name: 'Coral', hex: '#FF8080' },
+    { name: 'Lavender', hex: '#D8AAEE' },
+    { name: 'Magenta', hex: '#CC00CC' },
+  ],
+  // Row 3: Cool tones
+  [
+    { name: 'Purple', hex: '#7B2FBE' },
+    { name: 'Navy', hex: '#000080' },
+    { name: 'Blue', hex: '#0000FF' },
+    { name: 'Sky Blue', hex: '#3399FF' },
+    { name: 'Teal', hex: '#00CCAA' },
+    { name: 'Green', hex: '#00CC00' },
+  ],
+  // Row 4: Mixed
+  [
+    { name: 'Royal Blue', hex: '#2979FF' },
+    { name: 'Forest Green', hex: '#228B22' },
+    { name: 'Lime', hex: '#AAFF00' },
+    { name: 'Yellow', hex: '#FFFF00' },
+    { name: 'Yellow Green', hex: '#CCCC00' },
+    { name: 'Light Gray', hex: '#D3D3D3' },
+  ],
+];
+
 interface ColorPickerProps {
   value: { r: number; g: number; b: number };
   onChange: (color: { r: number; g: number; b: number }) => void;
@@ -29,6 +69,12 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
     }
   };
 
+  const handlePresetClick = (hex: string) => {
+    handleHexChange(hex);
+  };
+
+  const isSelected = (hex: string) => hexColor.toUpperCase() === hex.toUpperCase();
+
   return (
     <div>
       <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
@@ -55,6 +101,29 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
           <span>R: {value.r}</span>
           <span>G: {value.g}</span>
           <span>B: {value.b}</span>
+        </div>
+      </div>
+      {/* Preset color swatches */}
+      <div className="mt-3">
+        <p className="text-xs text-gray-500 mb-2">Printer Presets</p>
+        <div className="space-y-1.5">
+          {PRESET_COLORS.map((row, rowIndex) => (
+            <div key={rowIndex} className="flex gap-1.5">
+              {row.map((preset) => (
+                <button
+                  key={preset.hex + preset.name}
+                  title={preset.name}
+                  onClick={() => handlePresetClick(preset.hex)}
+                  className={`w-6 h-6 rounded-full border-2 transition-all hover:scale-110 ${
+                    isSelected(preset.hex)
+                      ? 'border-elegoo-orange ring-2 ring-elegoo-orange ring-offset-1'
+                      : 'border-gray-300 hover:border-gray-400'
+                  }`}
+                  style={{ backgroundColor: preset.hex }}
+                />
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </div>
