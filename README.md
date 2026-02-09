@@ -2,7 +2,7 @@
 
 A browser-based editor for Elegoo NTAG213 NFC spool tags. Edit your 3D printer filament spool RFID tags directly in your browser - works on desktop, tablet, and mobile devices!
 
-🌐 **Live Demo:** [https://yourusername.github.io/elegoo-rfid-editor/](https://yourusername.github.io/elegoo-rfid-editor/)
+🌐 **Live Demo:** [https://savion.github.io/elegoo-rfid-editor/](https://savion.github.io/elegoo-rfid-editor/)
 
 ## Features
 
@@ -32,7 +32,7 @@ These fields are stored but not currently used by the printer:
 
 ### For Users
 
-1. Visit the [live demo](https://yourusername.github.io/elegoo-rfid-editor/)
+1. Visit the [live demo](https://Savion.github.io/elegoo-rfid-editor/)
 2. Click **"Generate New"** to create a blank tag, or **"Load .BIN"** to edit an existing one
 3. Select your **Material** and **Supplement**
 4. Pick your **Filament Color**
@@ -60,7 +60,7 @@ These fields are stored but not currently used by the printer:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/elegoo-rfid-editor.git
+git clone https://github.com/Savion/elegoo-rfid-editor.git
 cd elegoo-rfid-editor
 
 # Install dependencies
@@ -200,7 +200,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Related Projects
 
-- [Desktop Windows App](../NFCEditor/) - Original C# WinForms application
+- [Desktop Windows App](https://github.com/Savion/elegoo-rfid-editor-desktop) - Original C# WinForms application
 - [RFID Tools](https://play.google.com/store/apps/details?id=com.rfidtools) - Mobile NFC reader/writer app
 
 ## License
@@ -218,7 +218,7 @@ MIT License - feel free to use this project however you'd like!
 
 If you find this tool useful, please ⭐ star the repository!
 
-For issues or questions, please [open an issue](https://github.com/yourusername/elegoo-rfid-editor/issues).
+For issues or questions, please [open an issue](https://github.com/Savion/elegoo-rfid-editor/issues).
 
 ---
 
