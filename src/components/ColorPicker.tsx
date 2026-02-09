@@ -5,39 +5,39 @@ import { CheckCircle2 } from 'lucide-react';
 const PRESET_COLORS: { name: string; hex: string }[][] = [
   // Row 1: Mixed
   [
-    { name: 'Royal Blue', hex: '#2979FF' },
-    { name: 'Forest Green', hex: '#228B22' },
-    { name: 'Lime', hex: '#AAFF00' },
-    { name: 'Yellow', hex: '#FFFF00' },
-    { name: 'Yellow Green', hex: '#CCCC00' },
     { name: 'Light Gray', hex: '#D3D3D3' },
+    { name: 'Yellow Green', hex: '#CCCC00' },
+    { name: 'Yellow', hex: '#FFFF00' },
+    { name: 'Lime', hex: '#AAFF00' },
+    { name: 'Forest Green', hex: '#228B22' },
+    { name: 'Royal Blue', hex: '#2979FF' },
   ],
   // Row 2: Cool tones
   [
-    { name: 'Purple', hex: '#7B2FBE' },
-    { name: 'Navy', hex: '#000080' },
-    { name: 'Blue', hex: '#0000FF' },
-    { name: 'Sky Blue', hex: '#3399FF' },
-    { name: 'Teal', hex: '#00CCAA' },
     { name: 'Green', hex: '#00CC00' },
+    { name: 'Teal', hex: '#00CCAA' },
+    { name: 'Sky Blue', hex: '#3399FF' },
+    { name: 'Blue', hex: '#0000FF' },
+    { name: 'Navy', hex: '#000080' },
+    { name: 'Purple', hex: '#7B2FBE' },
   ],
   // Row 3: Warm tones
   [
-    { name: 'Orange', hex: '#FFA500' },
-    { name: 'Amber', hex: '#CC9900' },
-    { name: 'Red Orange', hex: '#FF6633' },
-    { name: 'Coral', hex: '#FF8080' },
-    { name: 'Lavender', hex: '#D8AAEE' },
     { name: 'Magenta', hex: '#CC00CC' },
+    { name: 'Lavender', hex: '#D8AAEE' },
+    { name: 'Coral', hex: '#FF8080' },
+    { name: 'Red Orange', hex: '#FF6633' },
+    { name: 'Amber', hex: '#CC9900' },
+    { name: 'Orange', hex: '#FFA500' },
   ],
   // Row 4: Neutrals
   [
-    { name: 'Black', hex: '#000000' },
-    { name: 'White', hex: '#FFFFFF' },
-    { name: 'Silver', hex: '#C0C0C0' },
-    { name: 'Gold', hex: '#DAA520' },
-    { name: 'Ivory', hex: '#F5F5DC' },
     { name: 'Snow', hex: '#F0F0F0' },
+    { name: 'Ivory', hex: '#F5F5DC' },
+    { name: 'Gold', hex: '#DAA520' },
+    { name: 'Silver', hex: '#C0C0C0' },
+    { name: 'White', hex: '#FFFFFF' },
+    { name: 'Black', hex: '#000000' },
   ],
 ];
 
