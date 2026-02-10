@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { getManufacturerNames, getMaterialsForManufacturer, getColorsForMaterial } from '../lib/manufacturerColors';
 
 // Centauri Carbon 2 Combo preset colors (4 rows x 6 columns)
 const PRESET_COLORS: { name: string; hex: string }[][] = [
@@ -49,6 +50,10 @@ interface ColorPickerProps {
 export function ColorPicker({ value, onChange }: ColorPickerProps) {
   const hexColor = `#${value.r.toString(16).padStart(2, '0')}${value.g.toString(16).padStart(2, '0')}${value.b.toString(16).padStart(2, '0')}`;
   const [hexInput, setHexInput] = useState(hexColor.toUpperCase());
+  const [catalogOpen, setCatalogOpen] = useState(false);
+  const [selectedManufacturer, setSelectedManufacturer] = useState(getManufacturerNames()[0]);
+  const [selectedMaterial, setSelectedMaterial] = useState(getMaterialsForManufacturer(getManufacturerNames()[0])[0]);
+  const [hoveredColor, setHoveredColor] = useState<string | null>(null);
 
   // Update local input when parent value changes (e.g., from color picker)
   useEffect(() => {
@@ -106,25 +111,78 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
       {/* Preset color swatches */}
       <div className="mt-3">
         <p className="text-xs text-gray-500 mb-2">Printer Presets</p>
-        <div className="space-y-1.5">
-          {PRESET_COLORS.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex gap-1.5">
-              {row.map((preset) => (
+        <div className="flex flex-wrap gap-1.5">
+          {PRESET_COLORS.flat().map((preset) => (
+            <button
+              key={preset.hex + preset.name}
+              title={preset.name}
+              onClick={() => handlePresetClick(preset.hex)}
+              className={`w-6 h-6 rounded-full border-2 transition-all hover:scale-110 ${
+                isSelected(preset.hex)
+                  ? 'border-elegoo-orange ring-2 ring-elegoo-orange ring-offset-1'
+                  : 'border-gray-300 hover:border-gray-400'
+              }`}
+              style={{ backgroundColor: preset.hex }}
+            />
+          ))}
+        </div>
+      </div>
+      {/* Manufacturer color catalog */}
+      <div className="mt-3 border border-gray-200 rounded-lg">
+        <button
+          onClick={() => setCatalogOpen(!catalogOpen)}
+          className="w-full flex items-center justify-between px-3 py-2 text-xs text-gray-500 hover:text-gray-700"
+        >
+          <span>Filament Color Catalog</span>
+          {catalogOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        </button>
+        {catalogOpen && (
+          <div className="px-3 pb-3 space-y-2">
+            <div className="flex gap-2">
+              <select
+                value={selectedManufacturer}
+                onChange={(e) => {
+                  setSelectedManufacturer(e.target.value);
+                  setSelectedMaterial(getMaterialsForManufacturer(e.target.value)[0]);
+                }}
+                className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded-md"
+              >
+                {getManufacturerNames().map((name) => (
+                  <option key={name} value={name}>{name}</option>
+                ))}
+              </select>
+              <select
+                value={selectedMaterial}
+                onChange={(e) => setSelectedMaterial(e.target.value)}
+                className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded-md"
+              >
+                {getMaterialsForManufacturer(selectedManufacturer).map((mat) => (
+                  <option key={mat} value={mat}>{mat}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {getColorsForMaterial(selectedManufacturer, selectedMaterial).map((color) => (
                 <button
-                  key={preset.hex + preset.name}
-                  title={preset.name}
-                  onClick={() => handlePresetClick(preset.hex)}
+                  key={color.hex + color.name}
+                  title={`${color.name} (${color.hex})`}
+                  onClick={() => handlePresetClick(color.hex)}
+                  onMouseEnter={() => setHoveredColor(color.name)}
+                  onMouseLeave={() => setHoveredColor(null)}
                   className={`w-6 h-6 rounded-full border-2 transition-all hover:scale-110 ${
-                    isSelected(preset.hex)
+                    isSelected(color.hex)
                       ? 'border-elegoo-orange ring-2 ring-elegoo-orange ring-offset-1'
                       : 'border-gray-300 hover:border-gray-400'
                   }`}
-                  style={{ backgroundColor: preset.hex }}
+                  style={{ backgroundColor: color.hex }}
                 />
               ))}
             </div>
-          ))}
-        </div>
+            <p className="text-xs text-gray-500 h-4">
+              {hoveredColor ?? '\u00A0'}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
