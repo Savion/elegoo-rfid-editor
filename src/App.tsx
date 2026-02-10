@@ -11,9 +11,7 @@ import { StatusBar } from './components/StatusBar';
 import { Header } from './components/Header';
 import { HexEditor } from './components/HexEditor';
 import { NfcReaderWriter, isWebNfcSupported } from './components/NfcReaderWriter';
-import { CheckCircle2, AlertCircle, FlaskConical } from 'lucide-react';
-
-type AppTab = 'editor' | 'beta';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
 
 function App() {
   const [spool, setSpool] = useState<ElegooSpool | null>(null);
@@ -21,7 +19,6 @@ function App() {
   const [statusMessage, setStatusMessage] = useState<string>('Ready - No file loaded');
   const [showHexEditor, setShowHexEditor] = useState(false);
   const [nfcSupported] = useState(() => isWebNfcSupported());
-  const [activeTab, setActiveTab] = useState<AppTab>('editor');
 
   // Generate default filename based on subtype and color
   const generateDefaultFileName = (spoolData: ElegooSpool): string => {
@@ -148,261 +145,153 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Header />
 
-      {/* Tab Bar — only shown when Web NFC is available */}
-      {nfcSupported && (
-        <div className="bg-white border-b border-gray-200 shadow-sm">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <nav className="flex gap-0" aria-label="Tabs">
-              <button
-                onClick={() => setActiveTab('editor')}
-                className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors ${
-                  activeTab === 'editor'
-                    ? 'border-elegoo-orange text-elegoo-orange'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                Editor
-              </button>
-              <button
-                onClick={() => setActiveTab('beta')}
-                className={`px-5 py-3 text-sm font-medium border-b-2 transition-colors flex items-center gap-2 ${
-                  activeTab === 'beta'
-                    ? 'border-purple-500 text-purple-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                <FlaskConical size={16} />
-                NFC
-                <span className="text-[10px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded-full leading-none">
-                  BETA
-                </span>
-              </button>
-            </nav>
-          </div>
-        </div>
-      )}
-
       <main className="container mx-auto px-4 py-6 max-w-6xl">
-        {/* ==================== EDITOR TAB ==================== */}
-        {activeTab === 'editor' && (
-          <>
-            {/* Action Buttons */}
-            <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-              <div className="flex flex-wrap gap-3 items-center mb-3">
-                <button
-                  onClick={handleGenerateNew}
-                  className="px-4 py-2 bg-elegoo-orange text-white rounded-lg hover:bg-orange-600 transition-colors font-medium"
-                >
-                  Generate New
-                </button>
+        {/* Action Buttons */}
+        <div className="bg-white rounded-lg shadow-md p-4 mb-6">
+          <div className="flex flex-wrap gap-3 items-center mb-3">
+            <button
+              onClick={handleGenerateNew}
+              className="px-4 py-2 bg-elegoo-orange text-white rounded-lg hover:bg-orange-600 transition-colors font-medium"
+            >
+              Generate New
+            </button>
 
-                <FileUpload onFileLoad={handleFileLoad} />
+            <FileUpload onFileLoad={handleFileLoad} />
 
-                <button
-                  onClick={handleSave}
-                  disabled={!spool}
-                  className="px-4 py-2 bg-elegoo-blue text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Save .BIN
-                </button>
+            <button
+              onClick={handleSave}
+              disabled={!spool}
+              className="px-4 py-2 bg-elegoo-blue text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Save .BIN
+            </button>
 
-                <button
-                  onClick={handleFixChecksum}
-                  disabled={!spool}
-                  className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Fix Checksum
-                </button>
+            <button
+              onClick={handleFixChecksum}
+              disabled={!spool}
+              className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Fix Checksum
+            </button>
 
-                <button
-                  onClick={() => setShowHexEditor(!showHexEditor)}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
-                >
-                  {showHexEditor ? 'Hide' : 'Show'} Hex Editor
-                </button>
-              </div>
+            <button
+              onClick={() => setShowHexEditor(!showHexEditor)}
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+            >
+              {showHexEditor ? 'Hide' : 'Show'} Hex Editor
+            </button>
+          </div>
 
-              {/* Filename Input */}
-              <div className="flex items-center gap-2">
-                <label htmlFor="filename" className="text-sm font-medium text-gray-700 whitespace-nowrap">
-                  Filename:
-                </label>
-                <input
-                  id="filename"
-                  type="text"
-                  value={fileName}
-                  onChange={(e) => setFileName(e.target.value)}
-                  placeholder={spool ? generateDefaultFileName(spool).replace('.bin', '') : 'spool'}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-elegoo-orange focus:border-transparent text-sm font-mono"
-                />
-                <span className="text-sm text-gray-500">.bin</span>
-              </div>
+          {/* Filename Input */}
+          <div className="flex items-center gap-2">
+            <label htmlFor="filename" className="text-sm font-medium text-gray-700 whitespace-nowrap">
+              Filename:
+            </label>
+            <input
+              id="filename"
+              type="text"
+              value={fileName}
+              onChange={(e) => setFileName(e.target.value)}
+              placeholder={spool ? generateDefaultFileName(spool).replace('.bin', '') : 'spool'}
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-elegoo-orange focus:border-transparent text-sm font-mono"
+            />
+            <span className="text-sm text-gray-500">.bin</span>
+          </div>
 
-              {/* Validation Status */}
-              {validation && (
-                <div className="mt-3 flex items-center gap-2 text-sm">
-                  {validation.valid ? (
-                    <div className="flex items-center gap-1 text-green-600">
-                      <CheckCircle2 size={16} />
-                      <span>Tag valid</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-1 text-red-600">
-                      <AlertCircle size={16} />
-                      <span>{validation.errors[0]}</span>
-                    </div>
-                  )}
-                  {validation.warnings.length > 0 && (
-                    <div className="flex items-center gap-1 text-amber-600">
-                      <AlertCircle size={16} />
-                      <span>{validation.warnings[0]}</span>
-                    </div>
-                  )}
+          {/* Validation Status */}
+          {validation && (
+            <div className="mt-3 flex items-center gap-2 text-sm">
+              {validation.valid ? (
+                <div className="flex items-center gap-1 text-green-600">
+                  <CheckCircle2 size={16} />
+                  <span>Tag valid</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1 text-red-600">
+                  <AlertCircle size={16} />
+                  <span>{validation.errors[0]}</span>
+                </div>
+              )}
+              {validation.warnings.length > 0 && (
+                <div className="flex items-center gap-1 text-amber-600">
+                  <AlertCircle size={16} />
+                  <span>{validation.warnings[0]}</span>
                 </div>
               )}
             </div>
+          )}
+        </div>
 
-            {/* Spool Configuration */}
-            <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-              <div className="mb-4">
-                <h2 className="text-xl font-bold text-gray-800">
-                  Spool Configuration
-                  <span className="text-sm font-normal text-gray-500 ml-3">
-                    ✓ = Used by printer, ⓘ = Metadata only
-                  </span>
-                </h2>
-                {spool && (
-                  <p className="text-sm text-gray-600 mt-1">
-                    Manufacturer: <span className="font-medium">{spool.manufacturer}</span>
-                  </p>
-                )}
-              </div>
-
-              {spool && (
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <MaterialSelector
-                      value={spool.material}
-                      onChange={handleMaterialChange}
-                    />
-
-                    <SubtypeSelector
-                      material={spool.material}
-                      value={spool.subtype}
-                      onChange={handleSubtypeChange}
-                    />
-
-                    <ColorPicker
-                      value={spool.color}
-                      onChange={handleColorChange}
-                    />
-                  </div>
-
-                  <MetadataFields
-                    weight={spool.weight}
-                    diameter={spool.diameter}
-                    minTemp={spool.minTemp}
-                    maxTemp={spool.maxTemp}
-                    productionDate={spool.productionDate}
-                    modifier={spool.colorModifier}
-                    onChange={handleMetadataChange}
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Export Buttons */}
+        {/* Spool Configuration */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <div className="mb-4">
+            <h2 className="text-xl font-bold text-gray-800">
+              Spool Configuration
+              <span className="text-sm font-normal text-gray-500 ml-3">
+                ✓ = Used by printer, ⓘ = Metadata only
+              </span>
+            </h2>
             {spool && (
-              <ExportButtons
-                spool={spool}
-                onStatusUpdate={setStatusMessage}
-                filename={fileName || generateDefaultFileName(spool).replace('.bin', '')}
-              />
+              <p className="text-sm text-gray-600 mt-1">
+                Manufacturer: <span className="font-medium">{spool.manufacturer}</span>
+              </p>
             )}
+          </div>
 
-            {/* Hex Editor */}
-            {showHexEditor && spool && (
-              <HexEditor data={spool.getRawData()} />
-            )}
-          </>
+          {spool && (
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <MaterialSelector
+                  value={spool.material}
+                  onChange={handleMaterialChange}
+                />
+
+                <SubtypeSelector
+                  material={spool.material}
+                  value={spool.subtype}
+                  onChange={handleSubtypeChange}
+                />
+
+                <ColorPicker
+                  value={spool.color}
+                  onChange={handleColorChange}
+                />
+              </div>
+
+              <MetadataFields
+                weight={spool.weight}
+                diameter={spool.diameter}
+                minTemp={spool.minTemp}
+                maxTemp={spool.maxTemp}
+                productionDate={spool.productionDate}
+                modifier={spool.colorModifier}
+                onChange={handleMetadataChange}
+              />
+            </div>
+          )}
+        </div>
+
+        {/* Export Buttons */}
+        {spool && (
+          <ExportButtons
+            spool={spool}
+            onStatusUpdate={setStatusMessage}
+            filename={fileName || generateDefaultFileName(spool).replace('.bin', '')}
+          />
         )}
 
-        {/* ==================== BETA TAB ==================== */}
-        {activeTab === 'beta' && (
-          <>
-            {/* Beta banner */}
-            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-6">
-              <div className="flex items-start gap-3">
-                <FlaskConical size={20} className="text-purple-600 mt-0.5 shrink-0" />
-                <div>
-                  <h2 className="text-sm font-semibold text-purple-800">NFC Tag Writer — Beta</h2>
-                  <p className="text-sm text-purple-600 mt-1">
-                    Write spool configurations directly to NTAG213 tags using your phone&apos;s NFC.
-                    Configure the spool below, then tap Write Tag to program a tag.
-                  </p>
-                </div>
-              </div>
-            </div>
+        {/* NFC Reader/Writer - only visible on devices with Web NFC (Chrome Android) */}
+        {nfcSupported && spool && (
+          <NfcReaderWriter
+            spool={spool}
+            onTagRead={handleNfcTagRead}
+            onStatusUpdate={setStatusMessage}
+          />
+        )}
 
-            {/* Quick Actions */}
-            <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-              <div className="flex flex-wrap gap-3 items-center">
-                <button
-                  onClick={handleGenerateNew}
-                  className="px-4 py-2 bg-elegoo-orange text-white rounded-lg hover:bg-orange-600 transition-colors font-medium"
-                >
-                  Generate New
-                </button>
-
-                <FileUpload onFileLoad={handleFileLoad} />
-              </div>
-            </div>
-
-            {/* Spool Configuration (compact for beta) */}
-            {spool && (
-              <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-                <h2 className="text-lg font-bold text-gray-800 mb-4">Spool Configuration</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <MaterialSelector
-                      value={spool.material}
-                      onChange={handleMaterialChange}
-                    />
-
-                    <SubtypeSelector
-                      material={spool.material}
-                      value={spool.subtype}
-                      onChange={handleSubtypeChange}
-                    />
-
-                    <ColorPicker
-                      value={spool.color}
-                      onChange={handleColorChange}
-                    />
-                  </div>
-
-                  <MetadataFields
-                    weight={spool.weight}
-                    diameter={spool.diameter}
-                    minTemp={spool.minTemp}
-                    maxTemp={spool.maxTemp}
-                    productionDate={spool.productionDate}
-                    modifier={spool.colorModifier}
-                    onChange={handleMetadataChange}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* NFC Reader/Writer */}
-            {spool && (
-              <NfcReaderWriter
-                spool={spool}
-                onTagRead={handleNfcTagRead}
-                onStatusUpdate={setStatusMessage}
-              />
-            )}
-          </>
+        {/* Hex Editor */}
+        {showHexEditor && spool && (
+          <HexEditor data={spool.getRawData()} />
         )}
       </main>
 
