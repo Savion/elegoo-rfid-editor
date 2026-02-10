@@ -28,42 +28,40 @@ export function MetadataFields({
   };
 
   return (
-    <div className="space-y-4">
-      <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-800">
-        <div className="flex items-start gap-2">
-          <Info size={16} className="mt-0.5 flex-shrink-0" />
-          <div>
-            <strong>Note:</strong> These fields are metadata only and not currently used by the printer.
-          </div>
+    <div className="space-y-3">
+      <div className="bg-amber-50 border border-amber-200 rounded-md p-2 text-[11px] text-amber-800">
+        <div className="flex items-center gap-1.5">
+          <Info size={12} className="flex-shrink-0" />
+          <span>Metadata only — not used by the printer.</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="flex items-center gap-1 text-sm font-medium text-gray-500 italic mb-2">
-            <Info size={14} />
+          <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">
+            <Info size={12} />
             Weight (g)
           </label>
           <input
             type="number"
             value={weight}
             onChange={(e) => onChange('weight', parseInt(e.target.value) || 0)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+            className="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-400 focus:border-transparent"
             min="0"
             max="10000"
           />
         </div>
 
         <div>
-          <label className="flex items-center gap-1 text-sm font-medium text-gray-500 italic mb-2">
-            <Info size={14} />
+          <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">
+            <Info size={12} />
             Diameter (×100)
           </label>
           <input
             type="number"
             value={diameter}
             onChange={(e) => onChange('diameter', parseInt(e.target.value) || 0)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+            className="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-400 focus:border-transparent"
             min="100"
             max="500"
             placeholder="175"
@@ -71,30 +69,30 @@ export function MetadataFields({
         </div>
 
         <div>
-          <label className="flex items-center gap-1 text-sm font-medium text-gray-500 italic mb-2">
-            <Info size={14} />
+          <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">
+            <Info size={12} />
             Min Temp (°C)
           </label>
           <input
             type="number"
             value={minTemp}
             onChange={(e) => onChange('minTemp', parseInt(e.target.value) || 0)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+            className="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-400 focus:border-transparent"
             min="0"
             max="400"
           />
         </div>
 
         <div>
-          <label className="flex items-center gap-1 text-sm font-medium text-gray-500 italic mb-2">
-            <Info size={14} />
+          <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">
+            <Info size={12} />
             Max Temp (°C)
           </label>
           <input
             type="number"
             value={maxTemp}
             onChange={(e) => onChange('maxTemp', parseInt(e.target.value) || 0)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-transparent"
+            className="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-400 focus:border-transparent"
             min="0"
             max="400"
           />
@@ -102,41 +100,41 @@ export function MetadataFields({
 
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <label className="flex items-center gap-1 text-sm font-medium text-gray-500 italic mb-2">
-            <Info size={14} />
+          <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">
+            <Info size={12} />
             Prod Date (YYMM)
           </label>
-          <div className="flex gap-2">
+          <div className="flex gap-1.5">
             <input
               type="text"
               value={productionDate}
               onChange={(e) => onChange('productionDate', e.target.value)}
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-transparent font-mono"
+              className="flex-1 px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-400 focus:border-transparent font-mono"
               maxLength={4}
               placeholder="2602"
             />
             <button
               onClick={setCurrentDate}
-              className="px-3 py-2 bg-gray-200 hover:bg-gray-300 rounded-lg transition-colors flex-shrink-0"
+              className="px-2 py-1 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors flex-shrink-0"
               title="Set to current month"
             >
-              <Calendar size={18} />
+              <Calendar size={14} />
             </button>
           </div>
         </div>
 
         <div>
-          <label className="flex items-center gap-1 text-sm font-medium text-gray-500 italic mb-2">
-            <Info size={14} />
+          <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">
+            <Info size={12} />
             Modifier
           </label>
           <input
             type="text"
             value={modifier}
             onChange={(e) => onChange('modifier', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-400 focus:border-transparent font-mono"
+            className="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-400 focus:border-transparent font-mono"
             maxLength={1}
             placeholder="M"
           />

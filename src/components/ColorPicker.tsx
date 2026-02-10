@@ -82,35 +82,35 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
 
   return (
     <div>
-      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-        <CheckCircle2 size={16} className="text-green-600" />
+      <label className="flex items-center gap-1.5 text-xs font-medium text-gray-700 mb-1">
+        <CheckCircle2 size={12} className="text-green-600" />
         Filament Color
-        <span className="text-xs text-green-600">(Used by printer)</span>
+        <span className="text-[10px] text-green-600">(Used by printer)</span>
       </label>
-      <div className="flex flex-wrap gap-3 items-center">
+      <div className="flex flex-wrap gap-2 items-center">
         <input
           type="color"
           value={hexColor}
           onChange={(e) => handleHexChange(e.target.value)}
-          className="w-20 h-10 rounded-lg cursor-pointer border-2 border-gray-300"
+          className="w-16 h-8 rounded-md cursor-pointer border-2 border-gray-300"
         />
         <input
           type="text"
           value={hexInput}
           onChange={(e) => handleHexChange(e.target.value)}
           placeholder="#FF0000"
-          className="flex-1 min-w-[120px] px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-elegoo-orange focus:border-transparent font-mono uppercase"
+          className="flex-1 min-w-[100px] px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-elegoo-orange focus:border-transparent font-mono uppercase"
           maxLength={7}
         />
-        <div className="flex gap-2 text-sm text-gray-600 whitespace-nowrap">
-          <span>R: {value.r}</span>
-          <span>G: {value.g}</span>
-          <span>B: {value.b}</span>
+        <div className="flex gap-1.5 text-[11px] text-gray-500 whitespace-nowrap">
+          <span>R:{value.r}</span>
+          <span>G:{value.g}</span>
+          <span>B:{value.b}</span>
         </div>
       </div>
       {/* Preset color swatches */}
-      <div className="mt-3">
-        <p className="text-xs text-gray-500 mb-2">Printer Presets</p>
+      <div className="mt-2">
+        <p className="text-[11px] text-gray-500 mb-1">Printer Presets</p>
         <div className="flex flex-wrap gap-1.5">
           {PRESET_COLORS.flat().map((preset) => (
             <button
@@ -128,24 +128,24 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
         </div>
       </div>
       {/* Manufacturer color catalog */}
-      <div className="mt-3 border border-gray-200 rounded-lg">
+      <div className="mt-2 border border-gray-200 rounded-md">
         <button
           onClick={() => setCatalogOpen(!catalogOpen)}
-          className="w-full flex items-center justify-between px-3 py-2 text-xs text-gray-500 hover:text-gray-700"
+          className="w-full flex items-center justify-between px-2 py-1.5 text-[11px] text-gray-500 hover:text-gray-700"
         >
           <span>Filament Color Catalog</span>
-          {catalogOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+          {catalogOpen ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
         </button>
         {catalogOpen && (
-          <div className="px-3 pb-3 space-y-2">
-            <div className="flex gap-2">
+          <div className="px-2 pb-2 space-y-1.5">
+            <div className="flex gap-1.5">
               <select
                 value={selectedManufacturer}
                 onChange={(e) => {
                   setSelectedManufacturer(e.target.value);
                   setSelectedMaterial(getMaterialsForManufacturer(e.target.value)[0]);
                 }}
-                className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded-md"
+                className="flex-1 text-xs px-1.5 py-1 border border-gray-300 rounded-md"
               >
                 {getManufacturerNames().map((name) => (
                   <option key={name} value={name}>{name}</option>
@@ -154,7 +154,7 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
               <select
                 value={selectedMaterial}
                 onChange={(e) => setSelectedMaterial(e.target.value)}
-                className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded-md"
+                className="flex-1 text-xs px-1.5 py-1 border border-gray-300 rounded-md"
               >
                 {getMaterialsForManufacturer(selectedManufacturer).map((mat) => (
                   <option key={mat} value={mat}>{mat}</option>

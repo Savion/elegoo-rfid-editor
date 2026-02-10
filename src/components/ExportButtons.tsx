@@ -79,47 +79,47 @@ export function ExportButtons({ spool, onStatusUpdate, filename }: ExportButtons
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Export Options</h2>
+    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+      <h2 className="text-sm font-bold text-gray-800 mb-3">Export Options</h2>
 
-      <div className="grid sm:grid-cols-3 gap-4">
+      <div className="grid sm:grid-cols-3 gap-2">
         <button
           onClick={handleMobileExport}
-          className="flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
+          className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors font-medium"
         >
-          <Smartphone size={20} />
+          <Smartphone size={14} />
           Export for Mobile
         </button>
 
         <button
           onClick={handleCopyHex}
-          className="flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+          className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium"
         >
-          <Copy size={20} />
+          <Copy size={14} />
           Copy Clean Hex
         </button>
 
         <button
           onClick={handleShare}
-          className="flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+          className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors font-medium"
         >
-          <Share2 size={20} />
+          <Share2 size={14} />
           {'share' in navigator ? 'Share / Download' : 'Download File'}
         </button>
       </div>
 
-      <div className="mt-4 text-sm text-gray-600 space-y-1">
+      <div className="mt-2 text-[11px] text-gray-500 space-y-0.5">
         <p>
-          <strong>Export for Mobile:</strong> Generates optimized A2 commands for RFID Tools (Android) or NFC Tools (iOS)
+          <strong>Mobile:</strong> A2 commands for RFID Tools / NFC Tools
         </p>
         <p>
-          <strong>Copy Clean Hex:</strong> Copies raw hex string for apps supporting hex input
+          <strong>Hex:</strong> Raw hex string for apps supporting hex input
         </p>
         <p>
-          <strong>{'share' in navigator ? 'Share / Download:' : 'Download File:'}</strong>{' '}
+          <strong>{'share' in navigator ? 'Share:' : 'Download:'}</strong>{' '}
           {'share' in navigator
-            ? 'Uses share sheet on mobile, downloads on desktop'
-            : 'Downloads the .bin file to your device'}
+            ? 'Share sheet on mobile, download on desktop'
+            : 'Downloads .bin file'}
         </p>
       </div>
     </div>

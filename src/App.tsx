@@ -145,13 +145,13 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Header />
 
-      <main className="container mx-auto px-4 py-6 max-w-6xl">
+      <main className="container mx-auto px-4 py-4 max-w-6xl">
         {/* Action Buttons */}
-        <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-          <div className="flex flex-wrap gap-3 items-center mb-3">
+        <div className="bg-white rounded-lg shadow-md p-3 mb-4">
+          <div className="flex flex-wrap gap-2 items-center mb-2">
             <button
               onClick={handleGenerateNew}
-              className="px-4 py-2 bg-elegoo-orange text-white rounded-lg hover:bg-orange-600 transition-colors font-medium"
+              className="px-3 py-1.5 text-xs bg-elegoo-orange text-white rounded-md hover:bg-orange-600 transition-colors font-medium"
             >
               Generate New
             </button>
@@ -161,7 +161,7 @@ function App() {
             <button
               onClick={handleSave}
               disabled={!spool}
-              className="px-4 py-2 bg-elegoo-blue text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-1.5 text-xs bg-elegoo-blue text-white rounded-md hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Save .BIN
             </button>
@@ -169,14 +169,14 @@ function App() {
             <button
               onClick={handleFixChecksum}
               disabled={!spool}
-              className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-1.5 text-xs bg-gray-700 text-white rounded-md hover:bg-gray-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Fix Checksum
             </button>
 
             <button
               onClick={() => setShowHexEditor(!showHexEditor)}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+              className="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors font-medium"
             >
               {showHexEditor ? 'Hide' : 'Show'} Hex Editor
             </button>
@@ -184,7 +184,7 @@ function App() {
 
           {/* Filename Input */}
           <div className="flex items-center gap-2">
-            <label htmlFor="filename" className="text-sm font-medium text-gray-700 whitespace-nowrap">
+            <label htmlFor="filename" className="text-xs font-medium text-gray-700 whitespace-nowrap">
               Filename:
             </label>
             <input
@@ -193,28 +193,28 @@ function App() {
               value={fileName}
               onChange={(e) => setFileName(e.target.value)}
               placeholder={spool ? generateDefaultFileName(spool).replace('.bin', '') : 'spool'}
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-elegoo-orange focus:border-transparent text-sm font-mono"
+              className="flex-1 px-2 py-1 border border-gray-300 rounded-md focus:ring-2 focus:ring-elegoo-orange focus:border-transparent text-xs font-mono"
             />
-            <span className="text-sm text-gray-500">.bin</span>
+            <span className="text-xs text-gray-500">.bin</span>
           </div>
 
           {/* Validation Status */}
           {validation && (
-            <div className="mt-3 flex items-center gap-2 text-sm">
+            <div className="mt-2 flex items-center gap-2 text-xs">
               {validation.valid ? (
                 <div className="flex items-center gap-1 text-green-600">
-                  <CheckCircle2 size={16} />
+                  <CheckCircle2 size={14} />
                   <span>Tag valid</span>
                 </div>
               ) : (
                 <div className="flex items-center gap-1 text-red-600">
-                  <AlertCircle size={16} />
+                  <AlertCircle size={14} />
                   <span>{validation.errors[0]}</span>
                 </div>
               )}
               {validation.warnings.length > 0 && (
                 <div className="flex items-center gap-1 text-amber-600">
-                  <AlertCircle size={16} />
+                  <AlertCircle size={14} />
                   <span>{validation.warnings[0]}</span>
                 </div>
               )}
@@ -223,24 +223,24 @@ function App() {
         </div>
 
         {/* Spool Configuration */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <div className="mb-4">
-            <h2 className="text-xl font-bold text-gray-800">
+        <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+          <div className="mb-3">
+            <h2 className="text-sm font-bold text-gray-800">
               Spool Configuration
-              <span className="text-sm font-normal text-gray-500 ml-3">
+              <span className="text-xs font-normal text-gray-500 ml-2">
                 ✓ = Used by printer, ⓘ = Metadata only
               </span>
             </h2>
             {spool && (
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-xs text-gray-600 mt-0.5">
                 Manufacturer: <span className="font-medium">{spool.manufacturer}</span>
               </p>
             )}
           </div>
 
           {spool && (
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-3">
                 <MaterialSelector
                   value={spool.material}
                   onChange={handleMaterialChange}

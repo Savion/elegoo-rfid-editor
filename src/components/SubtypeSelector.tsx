@@ -12,15 +12,15 @@ export function SubtypeSelector({ material, value, onChange }: SubtypeSelectorPr
 
   return (
     <div>
-      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-        <CheckCircle2 size={16} className="text-green-600" />
+      <label className="flex items-center gap-1.5 text-xs font-medium text-gray-700 mb-1">
+        <CheckCircle2 size={12} className="text-green-600" />
         Supplement
-        <span className="text-xs text-green-600">(Used by printer)</span>
+        <span className="text-[10px] text-green-600">(Used by printer)</span>
       </label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-elegoo-orange focus:border-transparent"
+        className="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-elegoo-orange focus:border-transparent"
       >
         {subtypes.map((subtype) => (
           <option key={subtype} value={subtype}>

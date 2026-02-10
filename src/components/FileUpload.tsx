@@ -39,9 +39,9 @@ export function FileUpload({ onFileLoad }: FileUploadProps) {
       />
       <label
         htmlFor="file-upload"
-        className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium cursor-pointer"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors font-medium cursor-pointer"
       >
-        <Upload size={18} />
+        <Upload size={14} />
         Load .BIN
       </label>
     </>

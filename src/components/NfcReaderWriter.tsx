@@ -213,37 +213,34 @@ export function NfcReaderWriter({ spool, onTagRead, onStatusUpdate }: NfcReaderW
   const isScanning = state === 'scanning-read' || state === 'scanning-write';
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
-        <Nfc size={22} className="text-emerald-600" />
+    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+      <h2 className="text-sm font-bold text-gray-800 mb-2 flex items-center gap-1.5">
+        <Nfc size={16} className="text-emerald-600" />
         NFC Tag Reader / Writer
       </h2>
-      <p className="text-sm text-gray-500 mb-4">
-        Read and write spool data directly to NTAG213 tags using your phone&apos;s NFC.
-      </p>
 
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-2 gap-2">
         <button
           onClick={isScanning ? cancelOperation : handleRead}
-          className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+          className={`flex items-center justify-center gap-1.5 px-3 py-2 text-xs rounded-md font-medium transition-colors ${
             state === 'scanning-read'
               ? 'bg-amber-500 text-white hover:bg-amber-600 animate-pulse'
               : 'bg-emerald-600 text-white hover:bg-emerald-700'
           }`}
         >
-          <Nfc size={20} />
+          <Nfc size={14} />
           {state === 'scanning-read' ? 'Cancel Read' : 'Read Tag'}
         </button>
 
         <button
           onClick={isScanning ? cancelOperation : handleWrite}
-          className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-colors ${
+          className={`flex items-center justify-center gap-1.5 px-3 py-2 text-xs rounded-md font-medium transition-colors ${
             state === 'scanning-write'
               ? 'bg-amber-500 text-white hover:bg-amber-600 animate-pulse'
               : 'bg-indigo-600 text-white hover:bg-indigo-700'
           }`}
         >
-          <Nfc size={20} />
+          <Nfc size={14} />
           {state === 'scanning-write' ? 'Cancel Write' : 'Write Tag'}
         </button>
       </div>
@@ -251,7 +248,7 @@ export function NfcReaderWriter({ spool, onTagRead, onStatusUpdate }: NfcReaderW
       {/* Status message */}
       {message && (
         <div
-          className={`mt-4 px-4 py-3 rounded-lg text-sm font-medium ${
+          className={`mt-2 px-3 py-2 rounded-md text-xs font-medium ${
             state === 'success'
               ? 'bg-green-50 text-green-700 border border-green-200'
               : state === 'error'
@@ -263,18 +260,9 @@ export function NfcReaderWriter({ spool, onTagRead, onStatusUpdate }: NfcReaderW
         </div>
       )}
 
-      <div className="mt-4 text-xs text-gray-400 space-y-1">
-        <p>
-          <strong>Read:</strong> Reads spool data from a tag previously written by this app
-        </p>
-        <p>
-          <strong>Write:</strong> Writes the current spool configuration to a blank or existing NTAG213 tag
-        </p>
-        <p className="text-amber-500">
-          ⚠ Web NFC writes NDEF records which may not be readable by all Elegoo printers.
-          For guaranteed compatibility, use the Export options with a dedicated NFC writing app.
-        </p>
-      </div>
+      <p className="mt-2 text-[11px] text-amber-500">
+        ⚠ Web NFC may not be compatible with all printers. For guaranteed compatibility, use Export options with a dedicated NFC app.
+      </p>
     </div>
   );
 }
