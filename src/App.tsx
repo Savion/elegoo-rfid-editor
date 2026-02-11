@@ -65,14 +65,6 @@ function App() {
     setStatusMessage(`Saved: ${saveName} (180 bytes)`);
   };
 
-  const handleFixChecksum = () => {
-    if (!spool) return;
-
-    spool.fixChecksums();
-    setSpool(new ElegooSpool(spool.getRawData())); // Force re-render
-    setStatusMessage('BCC1 checksum recalculated');
-  };
-
   const handleMaterialChange = (material: string) => {
     if (!spool) return;
     spool.material = material;
@@ -167,14 +159,6 @@ function App() {
             </button>
 
             <button
-              onClick={handleFixChecksum}
-              disabled={!spool}
-              className="px-3 py-1.5 text-xs bg-gray-700 text-white rounded-md hover:bg-gray-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Fix Checksum
-            </button>
-
-            <button
               onClick={() => setShowHexEditor(!showHexEditor)}
               className="px-3 py-1.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors font-medium"
             >
@@ -263,8 +247,6 @@ function App() {
                 diameter={spool.diameter}
                 minTemp={spool.minTemp}
                 maxTemp={spool.maxTemp}
-                productionDate={spool.productionDate}
-                modifier={spool.colorModifier}
                 onChange={handleMetadataChange}
               />
             </div>

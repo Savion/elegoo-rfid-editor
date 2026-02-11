@@ -79,48 +79,31 @@ export function ExportButtons({ spool, onStatusUpdate, filename }: ExportButtons
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-      <h2 className="text-sm font-bold text-gray-800 mb-3">Export Options</h2>
-
-      <div className="grid sm:grid-cols-3 gap-2">
+    <div className="bg-white rounded-lg shadow-md p-3 mb-4">
+      <div className="flex gap-1.5">
         <button
           onClick={handleMobileExport}
-          className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors font-medium"
+          className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 text-xs bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors font-medium"
         >
-          <Smartphone size={14} />
-          Export for Mobile
+          <Smartphone size={12} />
+          Mobile
         </button>
 
         <button
           onClick={handleCopyHex}
-          className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium"
+          className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 text-xs bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors font-medium"
         >
-          <Copy size={14} />
-          Copy Clean Hex
+          <Copy size={12} />
+          Hex
         </button>
 
         <button
           onClick={handleShare}
-          className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors font-medium"
+          className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 text-xs bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors font-medium"
         >
-          <Share2 size={14} />
-          {'share' in navigator ? 'Share / Download' : 'Download File'}
+          <Share2 size={12} />
+          {'share' in navigator ? 'Share' : 'Download'}
         </button>
-      </div>
-
-      <div className="mt-2 text-[11px] text-gray-500 space-y-0.5">
-        <p>
-          <strong>Mobile:</strong> A2 commands for RFID Tools / NFC Tools
-        </p>
-        <p>
-          <strong>Hex:</strong> Raw hex string for apps supporting hex input
-        </p>
-        <p>
-          <strong>{'share' in navigator ? 'Share:' : 'Download:'}</strong>{' '}
-          {'share' in navigator
-            ? 'Share sheet on mobile, download on desktop'
-            : 'Downloads .bin file'}
-        </p>
       </div>
     </div>
   );
