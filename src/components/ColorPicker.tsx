@@ -110,13 +110,13 @@ export function ColorPicker({ value, onChange, onCatalogSelect }: ColorPickerPro
           <span>B:{value.b}</span>
         </div>
       </div>
-      {/* Preset color swatches */}
+      {/* Centauri Carbon 2 color presets */}
       <div className="mt-2 border border-gray-200 rounded-md">
         <button
           onClick={() => setPresetsOpen(!presetsOpen)}
           className="w-full flex items-center justify-between px-2 py-1.5 text-[11px] text-gray-500 hover:text-gray-700"
         >
-          <span>Printer Presets</span>
+          <span>Centauri Carbon 2 Color Presets</span>
           {presetsOpen ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
         </button>
         {presetsOpen && (
