@@ -1,6 +1,6 @@
 {
   "name": "elegoo-rfid-editor",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "type": "module",
   "description": "Web-based editor for Elegoo NTAG213 NFC spool tags",
   "scripts": {

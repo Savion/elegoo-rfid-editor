@@ -8,7 +8,7 @@ export function Header() {
           <div className="min-w-0 flex-1">
             <h1 className="text-lg sm:text-xl font-bold leading-tight">Elegoo RFID Tag Editor</h1>
             <p className="text-[11px] sm:text-xs text-blue-200">
-              NTAG213 NFC spool tags - v2.1
+              NTAG213 NFC spool tags - v2.2
             </p>
           </div>
 
