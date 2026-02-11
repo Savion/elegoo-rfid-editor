@@ -12,7 +12,7 @@ export function SubtypeSelector({ material, value, onChange }: SubtypeSelectorPr
   return (
     <div>
       <label className="text-xs font-medium text-gray-700 mb-1">
-        Supplement
+        Subtype
       </label>
       <select
         value={value}

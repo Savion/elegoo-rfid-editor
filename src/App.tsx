@@ -228,9 +228,6 @@ function App() {
           <div className="mb-3">
             <h2 className="text-sm font-bold text-gray-800">
               Spool Configuration
-              <span className="text-xs font-normal text-gray-500 ml-2">
-                ✓ = Used by printer, ⓘ = Metadata only
-              </span>
             </h2>
             {spool && (
               <p className="text-xs text-gray-600 mt-0.5">
@@ -242,16 +239,18 @@ function App() {
           {spool && (
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-3">
-                <MaterialSelector
-                  value={spool.material}
-                  onChange={handleMaterialChange}
-                />
+                <div className="grid grid-cols-2 gap-3">
+                  <MaterialSelector
+                    value={spool.material}
+                    onChange={handleMaterialChange}
+                  />
 
-                <SubtypeSelector
-                  material={spool.material}
-                  value={spool.subtype}
-                  onChange={handleSubtypeChange}
-                />
+                  <SubtypeSelector
+                    material={spool.material}
+                    value={spool.subtype}
+                    onChange={handleSubtypeChange}
+                  />
+                </div>
 
                 <ColorPicker
                   value={spool.color}
