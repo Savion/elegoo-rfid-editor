@@ -17,13 +17,6 @@ export function MetadataFields({
 }: MetadataFieldsProps) {
   return (
     <div className="space-y-3">
-      <div className="bg-amber-50 border border-amber-200 rounded-md p-2 text-[11px] text-amber-800">
-        <div className="flex items-center gap-1.5">
-          <Info size={12} className="flex-shrink-0" />
-          <span>Metadata only — not used by the printer.</span>
-        </div>
-      </div>
-
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { getManufacturerNames, getMaterialsForManufacturer, getColorsForMaterial } from '../lib/manufacturerColors';
 
 // Centauri Carbon 2 Combo preset colors (4 rows x 6 columns)
@@ -84,10 +84,8 @@ export function ColorPicker({ value, onChange, onCatalogSelect }: ColorPickerPro
 
   return (
     <div>
-      <label className="flex items-center gap-1.5 text-xs font-medium text-gray-700 mb-1">
-        <CheckCircle2 size={12} className="text-green-600" />
+      <label className="text-xs font-medium text-gray-700 mb-1">
         Filament Color
-        <span className="text-[10px] text-green-600">(Used by printer)</span>
       </label>
       <div className="flex flex-wrap gap-2 items-center">
         <input
@@ -157,7 +155,7 @@ export function ColorPicker({ value, onChange, onCatalogSelect }: ColorPickerPro
                   setSelectedManufacturer(e.target.value);
                   setSelectedMaterial(getMaterialsForManufacturer(e.target.value)[0]);
                 }}
-                className="flex-1 text-xs px-1.5 py-1 border border-gray-300 rounded-md"
+                className="flex-1 text-xs px-1.5 py-1 border border-gray-300 rounded-md bg-white"
               >
                 {getManufacturerNames().map((name) => (
                   <option key={name} value={name}>{name}</option>
@@ -166,7 +164,7 @@ export function ColorPicker({ value, onChange, onCatalogSelect }: ColorPickerPro
               <select
                 value={selectedMaterial}
                 onChange={(e) => setSelectedMaterial(e.target.value)}
-                className="flex-1 text-xs px-1.5 py-1 border border-gray-300 rounded-md"
+                className="flex-1 text-xs px-1.5 py-1 border border-gray-300 rounded-md bg-white"
               >
                 {getMaterialsForManufacturer(selectedManufacturer).map((mat) => (
                   <option key={mat} value={mat}>{mat}</option>
