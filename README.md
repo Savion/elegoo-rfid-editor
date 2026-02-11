@@ -10,23 +10,23 @@ A browser-based editor for Elegoo NTAG213 NFC spool tags. Edit your 3D printer f
 📱 **Mobile Friendly** - Responsive design works on phones and tablets
 🔒 **Privacy First** - All processing happens client-side, your data never leaves your device
 💾 **Offline Capable** - Can be installed as a Progressive Web App
-🎨 **Modern UI** - Clean, intuitive interface with visual indicators
+🎨 **Filament Color Catalog** - 2900+ colors from 19 manufacturers with auto material/subtype selection
+📡 **Web NFC Support** - Read and write tags directly on Chrome Android
 📤 **Multiple Export Options** - Mobile commands, clean hex, or share files
+📋 **Activity Log** - Collapsible console tracking all actions
 
 ## Supported Features
 
-### Active Fields (Read by Printer) ✓
+### Spool Configuration
 - **Material** - Select from 15 supported materials (PLA, PETG, ABS, TPU, PA, CPE, PC, PVA, ASA, BVOH, EVA, HIPS, PP, PPA, PPS)
-- **Supplement** - Choose from 52 material subtypes (PLA-CF, PETG-GF, TPU 95A, etc.)
-- **Filament Color** - RGB color picker with hex input
+- **Subtype** - Choose from 52 material subtypes (PLA-CF, PETG-GF, TPU 95A, etc.)
+- **Filament Color** - RGB color picker with hex input and Centauri Carbon 2 color presets
+- **Manufacturer Color Catalog** - Browse 2900+ colors from 19 brands (ELEGOO, Bambu Lab, Polymaker, Prusament, eSUN, SUNLU, and more). Selecting a catalog color automatically sets the material and subtype.
 
-### Metadata Fields ⓘ
-These fields are stored but not currently used by the printer:
+### Metadata Fields
 - Weight (grams)
-- Diameter (mm × 100)
+- Diameter (mm)
 - Temperature Range (Min/Max in °C)
-- Production Date (YYMM format)
-- Color Modifier (L/M/D)
 
 ## Quick Start
 
@@ -34,22 +34,20 @@ These fields are stored but not currently used by the printer:
 
 1. Visit the [live demo](https://Savion.github.io/elegoo-rfid-editor/)
 2. Click **"Generate New"** to create a blank tag, or **"Load .BIN"** to edit an existing one
-3. Select your **Material** and **Supplement**
-4. Pick your **Filament Color**
-5. Optionally fill in metadata fields
-6. Click **"Fix Checksum"** to ensure the tag is valid
-7. **Export** for mobile or **Save .BIN** to your device
+3. Select your **Material** and **Subtype**
+4. Pick your **Filament Color** — or browse the manufacturer color catalog to auto-fill material, subtype, and color at once
+5. Optionally adjust metadata fields (weight, diameter, temperatures)
+6. **Export** for mobile or **Save .BIN** to your device
 
 ### On Mobile
 
-1. Open the web app in your mobile browser
+1. Open the web app in Chrome on your Android device
 2. Tap **"Add to Home Screen"** for easy access
 3. Load or create your tag
-4. Tap **"Export for Mobile"** to copy commands
-5. Open the NFC app:
+4. **Option A — Web NFC (Chrome Android):** Use the built-in NFC Reader/Writer to read and write tags directly
+5. **Option B — Export:** Tap **"Mobile"** to copy commands, then paste into your NFC app:
    - **Android:** RFID Tools → Other → Advanced RFID Commands
    - **iOS:** NFC Tools → Other → Advanced RFID Commands
-6. Paste and send!
 
 ## Development
 
@@ -94,27 +92,29 @@ The built files will be in the `dist/` directory.
 ```
 elegoo-rfid-web/
 ├── src/
-│   ├── components/         # React components
+│   ├── components/               # React components
 │   │   ├── Header.tsx
 │   │   ├── FileUpload.tsx
 │   │   ├── MaterialSelector.tsx
 │   │   ├── SubtypeSelector.tsx
-│   │   ├── ColorPicker.tsx
+│   │   ├── ColorPicker.tsx        # Color picker + manufacturer catalog
 │   │   ├── MetadataFields.tsx
 │   │   ├── ExportButtons.tsx
 │   │   ├── HexEditor.tsx
-│   │   └── StatusBar.tsx
-│   ├── lib/                # Core logic
-│   │   ├── ElegooSpool.ts  # Main spool data class
-│   │   ├── materials.ts    # Material & subtype definitions
-│   │   └── types.ts        # TypeScript interfaces
-│   ├── App.tsx             # Main application
-│   ├── main.tsx            # Entry point
-│   └── index.css           # Tailwind CSS
+│   │   ├── NfcReaderWriter.tsx    # Web NFC read/write (Chrome Android)
+│   │   └── ActivityLog.tsx        # Collapsible activity console
+│   ├── lib/                       # Core logic
+│   │   ├── ElegooSpool.ts         # Main spool data class
+│   │   ├── materials.ts           # Material & subtype definitions
+│   │   ├── manufacturerColors.ts  # 2900+ colors from 19 brands
+│   │   └── types.ts               # TypeScript interfaces
+│   ├── App.tsx                    # Main application
+│   ├── main.tsx                   # Entry point
+│   └── index.css                  # Tailwind CSS
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml      # GitHub Actions deployment
-├── public/                 # Static assets
+│       └── deploy.yml             # GitHub Actions deployment
+├── public/                        # Static assets
 ├── index.html
 ├── vite.config.ts
 ├── tailwind.config.js
@@ -163,7 +163,7 @@ The BCC1 checksum at byte 0x08 is calculated as:
 BCC1 = UID[4] ^ UID[5] ^ UID[6] ^ UID[7]
 ```
 
-The app automatically recalculates this when you click "Fix Checksum".
+Checksums are automatically maintained when generating new tags.
 
 ## Export Formats
 
@@ -194,6 +194,7 @@ On mobile devices, uses the native share sheet to send the `.bin` file directly 
 - File API - for loading/saving files
 - Clipboard API - for copy operations
 - Web Share API - for mobile sharing (optional)
+- Web NFC API - for direct tag read/write on Chrome Android (optional)
 - Crypto API - for random UID generation
 
 ## Contributing
