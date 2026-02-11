@@ -132,3 +132,130 @@ export function getMaterialForSubtype(subtype: string): string | null {
   const familyEntry = Object.entries(MATERIAL_FAMILIES).find(([, code]) => code === familyCode);
   return familyEntry ? familyEntry[0] : null;
 }
+
+// --- Fuzzy matching for manufacturer catalog material names ---
+
+/** Synonym map: catalog word → system word */
+const SYNONYMS: Record<string, string> = {
+  professional: 'pro',
+  nylon: 'pa',
+  glow: 'fluo',
+  'pro+': 'pro',
+};
+
+/** Prefixes that can be stripped without changing the base material meaning */
+const STRIP_PREFIXES = ['super', 'easy', 'air', 'high speed', 'rock'];
+
+/** All known subtype names, lowercased → original name */
+const SUBTYPE_LOWER_MAP: Record<string, string> = Object.keys(SUBTYPE_CODES_REVERSE).reduce(
+  (acc, name) => {
+    acc[name.toLowerCase()] = name;
+    return acc;
+  },
+  {} as Record<string, string>,
+);
+
+/** All known subtype names, sorted words (lowercased) → original name */
+const SUBTYPE_SORTED_MAP: Record<string, string> = Object.keys(SUBTYPE_CODES_REVERSE).reduce(
+  (acc, name) => {
+    const sorted = name.toLowerCase().split(/\s+/).sort().join(' ');
+    acc[sorted] = name;
+    return acc;
+  },
+  {} as Record<string, string>,
+);
+
+/** All known base material family names */
+const BASE_MATERIALS = Object.keys(MATERIAL_FAMILIES);
+
+/**
+ * Helper: given a resolved subtype name, return { subtype, material } or null.
+ */
+function resolveSubtype(subtypeName: string): { subtype: string; material: string } | null {
+  const family = getMaterialForSubtype(subtypeName);
+  if (!family) return null;
+  return { subtype: subtypeName, material: family };
+}
+
+/**
+ * Fuzzy-match a manufacturer catalog material name to a system subtype.
+ *
+ * Tries progressively looser strategies:
+ *   1. Exact match
+ *   2. Case-insensitive match
+ *   3. Word-order-insensitive match (sorted words)
+ *   4. Synonym replacement + retry steps 2-3
+ *   5. Strip filler prefixes + retry steps 2-3
+ *   6. Base material fallback (extract PLA/PETG/ABS/etc.)
+ */
+export function fuzzyMatchSubtype(
+  catalogMaterial: string,
+): { subtype: string; material: string } | null {
+  // 1. Exact match
+  if (SUBTYPE_CODES_REVERSE[catalogMaterial] !== undefined) {
+    return resolveSubtype(catalogMaterial);
+  }
+
+  const lower = catalogMaterial.toLowerCase();
+
+  // 2. Case-insensitive
+  if (SUBTYPE_LOWER_MAP[lower]) {
+    return resolveSubtype(SUBTYPE_LOWER_MAP[lower]);
+  }
+
+  // 3. Word-order-insensitive
+  const sorted = lower.split(/\s+/).sort().join(' ');
+  if (SUBTYPE_SORTED_MAP[sorted]) {
+    return resolveSubtype(SUBTYPE_SORTED_MAP[sorted]);
+  }
+
+  // 4. Synonym replacement
+  const synonymized = lower
+    .split(/\s+/)
+    .map((w) => SYNONYMS[w] || w)
+    .join(' ');
+  if (synonymized !== lower) {
+    if (SUBTYPE_LOWER_MAP[synonymized]) {
+      return resolveSubtype(SUBTYPE_LOWER_MAP[synonymized]);
+    }
+    const synonymSorted = synonymized.split(/\s+/).sort().join(' ');
+    if (SUBTYPE_SORTED_MAP[synonymSorted]) {
+      return resolveSubtype(SUBTYPE_SORTED_MAP[synonymSorted]);
+    }
+  }
+
+  // 5. Strip filler prefixes and retry
+  let stripped = lower;
+  for (const prefix of STRIP_PREFIXES) {
+    if (stripped.startsWith(prefix + ' ')) {
+      stripped = stripped.slice(prefix.length + 1);
+    }
+  }
+  if (stripped !== lower) {
+    if (SUBTYPE_LOWER_MAP[stripped]) {
+      return resolveSubtype(SUBTYPE_LOWER_MAP[stripped]);
+    }
+    const strippedSorted = stripped.split(/\s+/).sort().join(' ');
+    if (SUBTYPE_SORTED_MAP[strippedSorted]) {
+      return resolveSubtype(SUBTYPE_SORTED_MAP[strippedSorted]);
+    }
+  }
+
+  // 6. Base material fallback — find longest matching material family name
+  const upperInput = catalogMaterial.toUpperCase();
+  let bestBase: string | null = null;
+  for (const base of BASE_MATERIALS) {
+    const regex = new RegExp('\\b' + base + '\\b', 'i');
+    if (regex.test(upperInput)) {
+      if (!bestBase || base.length > bestBase.length) {
+        bestBase = base;
+      }
+    }
+  }
+  if (bestBase) {
+    // Return the base material as both the subtype and family
+    return { subtype: bestBase, material: bestBase };
+  }
+
+  return null;
+}

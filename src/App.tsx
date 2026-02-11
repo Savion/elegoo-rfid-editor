@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ElegooSpool } from './lib/ElegooSpool';
-import { getSubtypesForMaterial, getMaterialForSubtype } from './lib/materials';
+import { getSubtypesForMaterial, fuzzyMatchSubtype } from './lib/materials';
 import { FileUpload } from './components/FileUpload';
 import { MaterialSelector } from './components/MaterialSelector';
 import { SubtypeSelector } from './components/SubtypeSelector';
@@ -103,14 +103,12 @@ function App() {
   const handleCatalogSelect = (catalogMaterial: string) => {
     if (!spool) return;
 
-    // Map catalog material name (e.g. "PLA Matte") to parent material family (e.g. "PLA")
-    const parentMaterial = getMaterialForSubtype(catalogMaterial);
-    if (!parentMaterial) return;
+    // Fuzzy-match catalog name to system subtype (handles word order, synonyms, etc.)
+    const match = fuzzyMatchSubtype(catalogMaterial);
+    if (!match) return;
 
-    // Set material family
-    spool.material = parentMaterial;
-    // Set subtype to match the catalog material
-    spool.subtype = catalogMaterial;
+    spool.material = match.material;
+    spool.subtype = match.subtype;
 
     const newSpool = new ElegooSpool(spool.getRawData());
     setSpool(newSpool);
