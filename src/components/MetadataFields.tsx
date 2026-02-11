@@ -43,16 +43,17 @@ export function MetadataFields({
         <div>
           <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">
             <Info size={12} />
-            Diameter (×100)
+            Diameter (mm)
           </label>
           <input
             type="number"
-            value={diameter}
-            onChange={(e) => onChange('diameter', parseInt(e.target.value) || 0)}
+            value={diameter / 100}
+            onChange={(e) => onChange('diameter', Math.round((parseFloat(e.target.value) || 0) * 100))}
             className="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-400 focus:border-transparent"
-            min="100"
-            max="500"
-            placeholder="175"
+            min="1.00"
+            max="5.00"
+            step="0.01"
+            placeholder="1.75"
           />
         </div>
 
