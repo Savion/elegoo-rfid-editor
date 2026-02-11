@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ElegooSpool } from './lib/ElegooSpool';
-import { getSubtypesForMaterial } from './lib/materials';
+import { getSubtypesForMaterial, getMaterialForSubtype } from './lib/materials';
 import { FileUpload } from './components/FileUpload';
 import { MaterialSelector } from './components/MaterialSelector';
 import { SubtypeSelector } from './components/SubtypeSelector';
@@ -92,6 +92,23 @@ function App() {
   const handleColorChange = (color: { r: number; g: number; b: number }) => {
     if (!spool) return;
     spool.color = color;
+    const newSpool = new ElegooSpool(spool.getRawData());
+    setSpool(newSpool);
+    setFileName(generateDefaultFileName(newSpool).replace('.bin', ''));
+  };
+
+  const handleCatalogSelect = (catalogMaterial: string) => {
+    if (!spool) return;
+
+    // Map catalog material name (e.g. "PLA Matte") to parent material family (e.g. "PLA")
+    const parentMaterial = getMaterialForSubtype(catalogMaterial);
+    if (!parentMaterial) return;
+
+    // Set material family
+    spool.material = parentMaterial;
+    // Set subtype to match the catalog material
+    spool.subtype = catalogMaterial;
+
     const newSpool = new ElegooSpool(spool.getRawData());
     setSpool(newSpool);
     setFileName(generateDefaultFileName(newSpool).replace('.bin', ''));
@@ -239,6 +256,7 @@ function App() {
                 <ColorPicker
                   value={spool.color}
                   onChange={handleColorChange}
+                  onCatalogSelect={handleCatalogSelect}
                 />
               </div>
 

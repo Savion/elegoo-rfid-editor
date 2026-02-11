@@ -120,3 +120,15 @@ export function getSubtypesForMaterial(material: string): string[] {
     .map(([, name]) => name)
     .sort();
 }
+
+/**
+ * Given a subtype name (e.g. "PLA Matte"), return the parent material family (e.g. "PLA").
+ * Returns null if the subtype is not recognized.
+ */
+export function getMaterialForSubtype(subtype: string): string | null {
+  const subtypeCode = SUBTYPE_CODES_REVERSE[subtype];
+  if (subtypeCode === undefined) return null;
+  const familyCode = subtypeCode >> 8;
+  const familyEntry = Object.entries(MATERIAL_FAMILIES).find(([, code]) => code === familyCode);
+  return familyEntry ? familyEntry[0] : null;
+}

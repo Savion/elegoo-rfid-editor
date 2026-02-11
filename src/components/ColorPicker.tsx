@@ -45,9 +45,10 @@ const PRESET_COLORS: { name: string; hex: string }[][] = [
 interface ColorPickerProps {
   value: { r: number; g: number; b: number };
   onChange: (color: { r: number; g: number; b: number }) => void;
+  onCatalogSelect?: (catalogMaterial: string) => void;
 }
 
-export function ColorPicker({ value, onChange }: ColorPickerProps) {
+export function ColorPicker({ value, onChange, onCatalogSelect }: ColorPickerProps) {
   const hexColor = `#${value.r.toString(16).padStart(2, '0')}${value.g.toString(16).padStart(2, '0')}${value.b.toString(16).padStart(2, '0')}`;
   const [hexInput, setHexInput] = useState(hexColor.toUpperCase());
   const [presetsOpen, setPresetsOpen] = useState(false);
@@ -177,7 +178,10 @@ export function ColorPicker({ value, onChange }: ColorPickerProps) {
                 <button
                   key={color.hex + color.name}
                   title={`${color.name} (${color.hex})`}
-                  onClick={() => handlePresetClick(color.hex)}
+                  onClick={() => {
+                    handlePresetClick(color.hex);
+                    onCatalogSelect?.(selectedMaterial);
+                  }}
                   onMouseEnter={() => setHoveredColor(color.name)}
                   onMouseLeave={() => setHoveredColor(null)}
                   className={`w-6 h-6 rounded-full border-2 transition-all hover:scale-110 ${
