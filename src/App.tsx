@@ -7,18 +7,21 @@ import { SubtypeSelector } from './components/SubtypeSelector';
 import { ColorPicker } from './components/ColorPicker';
 import { MetadataFields } from './components/MetadataFields';
 import { ExportButtons } from './components/ExportButtons';
-import { StatusBar } from './components/StatusBar';
 import { Header } from './components/Header';
+import { ActivityLog } from './components/ActivityLog';
 import { HexEditor } from './components/HexEditor';
 import { NfcReaderWriter, isWebNfcSupported } from './components/NfcReaderWriter';
-import { CheckCircle2, AlertCircle } from 'lucide-react';
 
 function App() {
   const [spool, setSpool] = useState<ElegooSpool | null>(null);
   const [fileName, setFileName] = useState<string>('');
-  const [statusMessage, setStatusMessage] = useState<string>('Ready - No file loaded');
+  const [log, setLog] = useState<string[]>(['Ready - No file loaded']);
   const [showHexEditor, setShowHexEditor] = useState(false);
   const [nfcSupported] = useState(() => isWebNfcSupported());
+
+  const addLog = (message: string) => {
+    setLog((prev) => [...prev, message]);
+  };
 
   // Generate default filename based on subtype and color
   const generateDefaultFileName = (spoolData: ElegooSpool): string => {
@@ -32,14 +35,14 @@ function App() {
   useEffect(() => {
     const newSpool = new ElegooSpool();
     setSpool(newSpool);
-    setStatusMessage('Ready - Use Generate New or Load File to begin');
+    addLog('Ready - Use Generate New or Load File to begin');
   }, []);
 
   const handleFileLoad = (file: File, data: Uint8Array) => {
     const newSpool = new ElegooSpool(data);
     setSpool(newSpool);
     setFileName(file.name.replace('.bin', ''));
-    setStatusMessage(`Loaded: ${file.name} (${data.length} bytes)`);
+    addLog(`Loaded: ${file.name} (${data.length} bytes)`);
   };
 
   const handleGenerateNew = () => {
@@ -47,7 +50,7 @@ function App() {
     newSpool.generateNewIdentity();
     setSpool(newSpool);
     setFileName(generateDefaultFileName(newSpool).replace('.bin', ''));
-    setStatusMessage('Generated new tag with random UID');
+    addLog('Generated new tag with random UID');
   };
 
   const handleSave = () => {
@@ -62,7 +65,7 @@ function App() {
     a.click();
     URL.revokeObjectURL(url);
 
-    setStatusMessage(`Saved: ${saveName} (180 bytes)`);
+    addLog(`Saved: ${saveName} (180 bytes)`);
   };
 
   const handleMaterialChange = (material: string) => {
@@ -145,10 +148,8 @@ function App() {
     const newSpool = new ElegooSpool(data);
     setSpool(newSpool);
     setFileName(generateDefaultFileName(newSpool).replace('.bin', ''));
-    setStatusMessage(`NFC: Loaded tag data (${data.length} bytes)`);
+    addLog(`NFC: Loaded tag data (${data.length} bytes)`);
   };
-
-  const validation = spool?.validate();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -199,28 +200,6 @@ function App() {
             <span className="text-xs text-gray-500">.bin</span>
           </div>
 
-          {/* Validation Status */}
-          {validation && (
-            <div className="mt-2 flex items-center gap-2 text-xs">
-              {validation.valid ? (
-                <div className="flex items-center gap-1 text-green-600">
-                  <CheckCircle2 size={14} />
-                  <span>Tag valid</span>
-                </div>
-              ) : (
-                <div className="flex items-center gap-1 text-red-600">
-                  <AlertCircle size={14} />
-                  <span>{validation.errors[0]}</span>
-                </div>
-              )}
-              {validation.warnings.length > 0 && (
-                <div className="flex items-center gap-1 text-amber-600">
-                  <AlertCircle size={14} />
-                  <span>{validation.warnings[0]}</span>
-                </div>
-              )}
-            </div>
-          )}
         </div>
 
         {/* Spool Configuration */}
@@ -274,7 +253,7 @@ function App() {
         {spool && (
           <ExportButtons
             spool={spool}
-            onStatusUpdate={setStatusMessage}
+            onStatusUpdate={addLog}
             filename={fileName || generateDefaultFileName(spool).replace('.bin', '')}
           />
         )}
@@ -284,7 +263,7 @@ function App() {
           <NfcReaderWriter
             spool={spool}
             onTagRead={handleNfcTagRead}
-            onStatusUpdate={setStatusMessage}
+            onStatusUpdate={addLog}
           />
         )}
 
@@ -294,7 +273,7 @@ function App() {
         )}
       </main>
 
-      <StatusBar message={statusMessage} />
+      <ActivityLog log={log} />
     </div>
   );
 }
