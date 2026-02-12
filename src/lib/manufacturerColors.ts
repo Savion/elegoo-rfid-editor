@@ -4384,7 +4384,45 @@ const ESUN: ManufacturerCatalog = {
   ],
 };
 
-export const MANUFACTURER_CATALOGS: ManufacturerCatalog[] = [ELEGOO, OVERTURE, HATCHBOX, _3DHOJOR, ANYCUBIC, BAMBU_LAB, CREALITY, DEEPLEE, ERYONE, FLASHFORGE, GEEETECH, INLAND, KINGROON, MATTERHACKERS, POLYMAKER, PRUSA, PRUSAMENT, SUNLU, ESUN];
+const SLIC3D: ManufacturerCatalog = {
+  name: 'Slic3D',
+  materials: [
+    {
+      material: 'PLA Basic',
+      colors: [
+        { name: 'Black', hex: '#000000' },
+        { name: 'Grey', hex: '#666666' },
+        { name: 'Pink', hex: '#FFB0D8' },
+        { name: 'Red', hex: '#C80000' },
+        { name: 'White', hex: '#FFFFFF' },
+      ],
+    },
+    {
+      material: 'PLA Lite',
+      colors: [
+        { name: 'Black', hex: '#000000' },
+      ],
+    },
+    {
+      material: 'PETG Basic',
+      colors: [
+        { name: 'Black', hex: '#000000' },
+        { name: 'Blue', hex: '#022CAC' },
+        { name: 'Gray', hex: '#ADAEB1' },
+        { name: 'Red', hex: '#FF0000' },
+        { name: 'White', hex: '#FFFFFF' },
+      ],
+    },
+    {
+      material: 'PETG Lite',
+      colors: [
+        { name: 'Black', hex: '#000000' },
+      ],
+    },
+  ],
+};
+
+export const MANUFACTURER_CATALOGS: ManufacturerCatalog[] = [ELEGOO, OVERTURE, HATCHBOX, _3DHOJOR, ANYCUBIC, BAMBU_LAB, CREALITY, DEEPLEE, ERYONE, FLASHFORGE, GEEETECH, INLAND, KINGROON, MATTERHACKERS, POLYMAKER, PRUSA, PRUSAMENT, SUNLU, ESUN, SLIC3D];
 
 export function getManufacturerNames(): string[] {
   return MANUFACTURER_CATALOGS.map((m) => m.name);
