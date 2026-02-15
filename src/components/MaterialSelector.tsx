@@ -11,7 +11,7 @@ export function MaterialSelector({ value, onChange }: MaterialSelectorProps) {
   return (
     <div>
       <label className="text-xs font-medium text-gray-700 mb-1">
-        Material
+        Material Name
       </label>
       <select
         value={value}

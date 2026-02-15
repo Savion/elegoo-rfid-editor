@@ -7,22 +7,24 @@ export function HexEditor({ data }: HexEditorProps) {
     if (offset < 0x09) return 'UID / Serial';
     if (offset === 0x09) return 'BCC1 Checksum';
     if (offset >= 0x1C && offset <= 0x25) return 'Marketing URL';
-    if (offset === 0x40) return 'Header (EPC-256)';
+    if (offset === 0x40) return 'Header';
     if (offset >= 0x41 && offset <= 0x44) return 'Manufacturer Code';
-    if (offset >= 0x48 && offset <= 0x4B) return 'Material (Main)';
-    if (offset >= 0x4C && offset <= 0x4D) return 'Material (Subtype)';
-    if (offset >= 0x50 && offset <= 0x52) return 'Color Code (RGB)';
+    if (offset >= 0x45 && offset <= 0x46) return 'Filament Code';
+    if (offset >= 0x48 && offset <= 0x4B) return 'Material Name';
+    if (offset >= 0x4C && offset <= 0x4D) return 'Material Supplement';
+    if (offset >= 0x50 && offset <= 0x52) return 'Color Code';
     if (offset === 0x53) return 'Color Modifier';
     if (offset === 0x54 || offset === 0x55) return 'Min Temp';
     if (offset === 0x56 || offset === 0x57) return 'Max Temp';
-    if (offset === 0x5C || offset === 0x5D) return 'Diameter';
-    if (offset === 0x5E || offset === 0x5F) return 'Weight (g)';
+    if (offset === 0x5C || offset === 0x5D) return 'Filament Diameter';
+    if (offset === 0x5E || offset === 0x5F) return 'Filament Weight';
     if (offset === 0x60 || offset === 0x61) return 'Production Date';
     if (offset >= 0xA0 && offset <= 0xAF) return 'Config/Password';
     return '';
   };
 
   const getRowColor = (offset: number): string => {
+    if (offset >= 0x45 && offset <= 0x46) return 'bg-yellow-50';
     if (offset >= 0x48 && offset <= 0x4B) return 'bg-orange-50';
     if (offset >= 0x4C && offset <= 0x4D) return 'bg-amber-50';
     if (offset >= 0x50 && offset <= 0x52) return 'bg-green-50';
@@ -80,12 +82,16 @@ export function HexEditor({ data }: HexEditorProps) {
 
       <div className="mt-4 flex flex-wrap gap-3 text-xs">
         <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-yellow-50 border border-yellow-200"></div>
+          <span>Filament Code</span>
+        </div>
+        <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-orange-50 border border-orange-200"></div>
-          <span>Material</span>
+          <span>Material Name</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-amber-50 border border-amber-200"></div>
-          <span>Subtype</span>
+          <span>Material Supplement</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-green-50 border border-green-200"></div>

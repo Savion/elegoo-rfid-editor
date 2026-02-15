@@ -21,7 +21,7 @@ export function MetadataFields({
         <div>
           <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">
             <Info size={12} />
-            Weight (g)
+            Filament Weight (g)
           </label>
           <input
             type="number"
@@ -36,7 +36,7 @@ export function MetadataFields({
         <div>
           <label className="flex items-center gap-1 text-xs font-medium text-gray-500 italic mb-1">
             <Info size={12} />
-            Diameter (mm)
+            Filament Diameter (mm)
           </label>
           <input
             type="number"

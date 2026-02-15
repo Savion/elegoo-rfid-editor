@@ -208,7 +208,7 @@ function App() {
             </h2>
             {spool && (
               <p className="text-xs text-gray-600 mt-0.5">
-                Manufacturer: <span className="font-medium">{spool.manufacturer}</span>
+                Manufacturer Code: <span className="font-medium">{spool.manufacturer}</span>
               </p>
             )}
           </div>

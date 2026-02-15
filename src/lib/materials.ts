@@ -30,7 +30,7 @@ export const SUBTYPE_CODES: Record<number, string> = {
   0x0002: 'PLA Pro',
   0x0003: 'PLA Silk',
   0x0004: 'PLA-CF',
-  0x0005: 'PLA Carbon',
+  0x0005: 'PLA Carbon', //Not Visible on CC2
   0x0006: 'PLA Matte',
   0x0007: 'PLA Fluo',
   0x0008: 'PLA Wood',
@@ -39,33 +39,33 @@ export const SUBTYPE_CODES: Record<number, string> = {
   0x000B: 'PLA Marble',
   0x000C: 'PLA Galaxy',
   0x000D: 'PLA Red Copper',
-  0x000E: 'PLA Sparkle',
+  0x000E: 'PLA Sparkle', //Not Visible on CC2
   // PETG Family (0x01XX)
   0x0100: 'PETG',
   0x0101: 'PETG-CF',
   0x0102: 'PETG-GF',
-  0x0103: 'PETG Pro',
+  0x0103: 'PETG Pro', //Doesn't show up for some reason?
   0x0104: 'PETG Translucent',
   0x0105: 'RAPID PETG',
   // ABS Family (0x02XX)
   0x0200: 'ABS',
-  0x0201: 'ABS-GF',
+  0x0201: 'ABS-GF', //Not Visible on CC2
   // TPU Family (0x03XX)
   0x0300: 'TPU',
   0x0301: 'TPU 95A',
   0x0302: 'RAPID TPU 95A',
   // PA Family (0x04XX)
   0x0400: 'PA',
-  0x0401: 'PA-CF',
+  0x0401: 'PA-CF', //Not Visible on CC2
   0x0403: 'PAHT-CF',
-  0x0404: 'PA6',
-  0x0405: 'PA6-CF',
-  0x0406: 'PA12',
-  0x0407: 'PA12-CF',
+  0x0404: 'PA6',  //Not Visible on CC2
+  0x0405: 'PA6-CF', //Not Visible on CC2
+  0x0406: 'PA12', //Not Visible on CC2
+  0x0407: 'PA12-CF', //Not Visible on CC2
   // Other Materials
   0x0500: 'CPE',
   0x0600: 'PC',
-  0x0601: 'PCTG',
+  0x0601: 'PCTG', //Not Visible on CC2
   0x0602: 'PC-FR',
   0x0700: 'PVA',
   0x0800: 'ASA',
@@ -73,13 +73,13 @@ export const SUBTYPE_CODES: Record<number, string> = {
   0x0A00: 'EVA',
   0x0B00: 'HIPS',
   0x0C00: 'PP',
-  0x0C01: 'PP-CF',
-  0x0C02: 'PP-GF',
+  0x0C01: 'PP-CF', //Not Visible on CC2
+  0x0C02: 'PP-GF', //Not Visible on CC2
   0x0D00: 'PPA',
-  0x0D01: 'PPA-CF',
-  0x0D02: 'PPA-GF',
+  0x0D01: 'PPA-CF', //Not Visible on CC2
+  0x0D02: 'PPA-GF', //Not Visible on CC2
   0x0E00: 'PPS',
-  0x0E02: 'PPS-CF',
+  0x0E02: 'PPS-CF', //Not Visible on CC2
 };
 
 export const SUBTYPE_CODES_REVERSE: Record<string, number> = Object.entries(
