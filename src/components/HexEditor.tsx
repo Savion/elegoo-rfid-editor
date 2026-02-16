@@ -157,7 +157,6 @@ export function HexEditor({ data }: HexEditorProps) {
     // to the page-level description.
     const pageNumber = pageIndex;
     const pageDesc = getDescriptionForPage(pageNumber);
-    const descriptions = perByteDescriptions.length > 0 ? perByteDescriptions : pageDesc ? [pageDesc] : [];
 
     // helper stub retained for future use (re-mapping removed per request)
 
